@@ -1,0 +1,20 @@
+library(foreign)
+
+data<-read.spss("IOPGENERO.sav", to.data.frame=TRUE, use.value.labels = TRUE)
+
+attach(data)
+
+library(Hmisc)
+
+describe(P28A)
+describe(P28B)
+
+#Normalidad
+
+library(nortest)
+lillie.test(P28A)$p.value 
+lillie.test(P28B)$p.value
+
+#Prueba t para muestras relacionadas
+
+t.test(P28A, P28B, alternative='two.sided', conf.level=.95, paired=TRUE)
